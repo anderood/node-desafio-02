@@ -11,16 +11,6 @@ const users = [];
 
 function checksExistsUserAccount(request, response, next) {
   
-  /*
-    Esse middleware é responsável por receber o username do usuário pelo header e 
-    validar se existe ou não um usuário com o username passado. 
-    Caso exista, o usuário deve ser repassado para o request e a função next deve ser chamada.
-
-    Para que esse teste passe, você deve permitir que o middleware checksExistsUserAccount 
-    receba um username pelo header do request e caso um usuário com o mesmo username exista, 
-    ele deve ser colocado dentro de request.user e, ao final, retorne a chamada da função next.
-  */ 
-
     const { username } = request.headers;
 
     const userExists = users.find(item => item.username === username);
