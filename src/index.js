@@ -68,7 +68,18 @@ function checksTodoExists(request, response, next) {
 }
 
 function findUserById(request, response, next) {
-  // Complete aqui
+  
+  const { id } = request.params;
+
+  const checkUserID = users.find(item => item.id === id);
+
+  if(checkUserID){
+    request.user = checkUserID
+  }else {
+    return response.status(404).json({ error: "Usuario não encontrado"})
+  }
+
+  next();
 }
 
 app.post('/users', (request, response) => {
