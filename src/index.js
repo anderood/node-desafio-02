@@ -38,7 +38,33 @@ function checksCreateTodosUserAvailability(request, response, next) {
 }
 
 function checksTodoExists(request, response, next) {
-  // Complete aqui
+
+  const { username } = request.headers;
+  const { id } = request.params;
+
+  const checkUsername = users.find(item => item.username === username);
+  
+  const checkUUID = validate(id);
+
+  if( !checkUsername ){
+    return response.status(404).json({ error: 'Username não encontrado '})
+  }
+
+  if( !checkUUID ){
+    return response.status(400).json({ error: 'ID não valido '})
+  }
+
+  const checkTodoID = checkUsername.todos.find(item => item.id === id);
+
+  if( !checkTodoID ){
+    return response.status(404).json({ error: 'ID não encontrado '})
+  }
+
+  request.user = checkUsername;
+  request.todo = checkTodoID;
+
+  next();
+
 }
 
 function findUserById(request, response, next) {
